@@ -194,7 +194,12 @@ public class BluetoothSerial extends CordovaPlugin {
             callbackContext.success();
 
         } else if (action.equals(IS_ENABLED)) {
-
+            /* implements */
+            if (!cordova.hasPermission(ACCESS_COARSE_LOCATION)) {
+                permissionCallback = callbackContext;
+                cordova.requestPermission(this, CHECK_PERMISSIONS_REQ_CODE, ACCESS_COARSE_LOCATION);
+            }
+            /* ---------- */
             if (bluetoothAdapter.isEnabled()) {
                 callbackContext.success();
             } else {
